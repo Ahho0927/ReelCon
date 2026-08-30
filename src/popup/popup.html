@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reel Controls</title>
+  </head>
+  <body>
+    <main class="popup-shell">
+      <header class="popup-header">
+        <div class="brand-lockup">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <rect x="5" y="5" width="14" height="14" rx="4" stroke="currentColor" stroke-width="1.75" />
+              <path d="M10 9.25 15.1 12 10 14.75v-5.5Z" fill="currentColor" />
+            </svg>
+          </span>
+          <h1>Reel Controls</h1>
+        </div>
+        <label class="switch switch-master" aria-label="Reel Controls 전체 활성화">
+          <input id="enabled" type="checkbox" />
+          <span class="switch-track"><span class="switch-thumb"></span></span>
+        </label>
+      </header>
+
+      <div class="divider"></div>
+
+      <section class="settings-list" aria-label="제스처 설정">
+        <div class="setting-row">
+          <div class="setting-copy">
+            <strong>중앙 홀드</strong>
+            <span>UI 숨기고 일시정지</span>
+          </div>
+          <label class="switch" aria-label="중앙 홀드 활성화">
+            <input id="centerHoldEnabled" type="checkbox" />
+            <span class="switch-track"><span class="switch-thumb"></span></span>
+          </label>
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-copy">
+            <strong>가장자리 홀드</strong>
+            <span>누르는 동안 2배속</span>
+          </div>
+          <label class="switch" aria-label="가장자리 홀드 활성화">
+            <input id="edgeHoldEnabled" type="checkbox" />
+            <span class="switch-track"><span class="switch-thumb"></span></span>
+          </label>
+        </div>
+
+        <div class="setting-row" id="speedLockRow">
+          <div class="setting-copy">
+            <strong>아래로 밀어 고정</strong>
+            <span>같은 동작으로 해제</span>
+          </div>
+          <label class="switch" aria-label="2배속 고정 활성화">
+            <input id="speedLockEnabled" type="checkbox" />
+            <span class="switch-track"><span class="switch-thumb"></span></span>
+          </label>
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-copy">
+            <strong>탐색 바</strong>
+            <span>드래그하여 이동</span>
+          </div>
+          <label class="switch" aria-label="탐색 바 활성화">
+            <input id="scrubBarEnabled" type="checkbox" />
+            <span class="switch-track"><span class="switch-thumb"></span></span>
+          </label>
+        </div>
+      </section>
+
+      <footer class="scope-note">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="5.5" y="10" width="13" height="10" rx="2.4" stroke="currentColor" stroke-width="1.6" />
+          <path d="M8.5 10V7.5a3.5 3.5 0 0 1 7 0V10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+        </svg>
+        <span>Instagram 동영상에서만 작동</span>
+      </footer>
+    </main>
+    <script type="module" src="./index.ts"></script>
+  </body>
+</html>
