@@ -51,6 +51,7 @@ describe('VideoSession gesture state', () => {
   beforeEach(() => {
     vi.useFakeTimers();
     document.body.innerHTML = '';
+    document.documentElement.lang = 'ko';
   });
 
   afterEach(() => {
@@ -190,6 +191,23 @@ describe('VideoSession gesture state', () => {
     expect(video.playbackRate).toBe(2);
     video.dispatchEvent(pointer('pointercancel', 20, 200));
     expect(video.playbackRate).toBe(1);
+    session.destroy();
+  });
+
+  it('updates an active hold message when the Instagram language changes', () => {
+    const { video } = createVideo(false);
+    const session = new VideoSession(video, { ...DEFAULT_SETTINGS }, 'en');
+
+    video.dispatchEvent(pointer('pointerdown', 20, 180));
+    vi.advanceTimersByTime(300);
+    const message = document
+      .querySelector<HTMLElement>('[data-reel-controls="overlay"]')
+      ?.shadowRoot?.querySelector<HTMLElement>('.message');
+    expect(message?.textContent).toBe('Slide down to lock 2x speed');
+
+    session.updateLocale('ja');
+    expect(message?.textContent).toBe('下にスライドして2倍速をロック');
+    video.dispatchEvent(pointer('pointerup', 20, 180));
     session.destroy();
   });
 });

@@ -1,4 +1,9 @@
 import type { Settings } from '../shared/settings';
+import {
+  detectInstagramLocale,
+  rememberInstagramLocale,
+  type SupportedLocale,
+} from '../shared/i18n';
 import { isSupportedPath } from './surfaces';
 import { chooseActiveVideo, type Point } from './video-candidates';
 import { VideoSession } from './video-session';
@@ -16,15 +21,18 @@ export class ActiveVideoController {
   private scanQueued = false;
   private evaluationFrame = 0;
   private destroyed = false;
+  private locale: SupportedLocale;
 
   constructor(settings: Settings) {
     this.settings = settings;
+    this.locale = detectInstagramLocale();
+    rememberInstagramLocale(this.locale).catch(() => undefined);
     this.observer = new MutationObserver(this.onMutation);
     this.observer.observe(document.documentElement, {
       childList: true,
       subtree: true,
       attributes: true,
-      attributeFilter: ['aria-hidden', 'class', 'hidden', 'src', 'style'],
+      attributeFilter: ['aria-hidden', 'class', 'hidden', 'lang', 'src', 'style'],
     });
     if (typeof IntersectionObserver !== 'undefined') {
       this.intersectionObserver = new IntersectionObserver(this.onIntersection, {
@@ -108,7 +116,9 @@ export class ActiveVideoController {
       return;
     }
     this.session?.destroy();
-    this.session = candidate ? new VideoSession(candidate.video, this.settings) : null;
+    this.session = candidate
+      ? new VideoSession(candidate.video, this.settings, this.locale)
+      : null;
   }
 
   private onPointerMove = (event: PointerEvent): void => {
@@ -133,6 +143,14 @@ export class ActiveVideoController {
       !record.target.closest('[data-reel-controls="overlay"]'),
     );
     if (relevantRecords.length === 0) return;
+    if (relevantRecords.some((record) => record.attributeName === 'lang')) {
+      const locale = detectInstagramLocale();
+      if (locale !== this.locale) {
+        this.locale = locale;
+        this.session?.updateLocale(locale);
+        rememberInstagramLocale(locale).catch(() => undefined);
+      }
+    }
     const videoListChanged = relevantRecords.some((record) => {
       if (record.type === 'attributes') return record.attributeName === 'src';
       return [...record.addedNodes, ...record.removedNodes].some((node) =>

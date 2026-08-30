@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,7 +17,7 @@
           </span>
           <h1>Reel Controls</h1>
         </div>
-        <label class="switch switch-master" aria-label="Reel Controls 전체 활성화">
+        <label class="switch switch-master" aria-label="Enable Reel Controls" data-i18n-aria-label="masterLabel">
           <input id="enabled" type="checkbox" />
           <span class="switch-track"><span class="switch-thumb"></span></span>
         </label>
@@ -25,13 +25,13 @@
 
       <div class="divider"></div>
 
-      <section class="settings-list" aria-label="제스처 설정">
+      <section class="settings-list" aria-label="Gesture settings" data-i18n-aria-label="gestureSettings">
         <div class="setting-row">
           <div class="setting-copy">
-            <strong>중앙 홀드</strong>
-            <span>UI 숨기고 일시정지</span>
+            <strong data-i18n="centerHoldTitle">Center hold</strong>
+            <span data-i18n="centerHoldDescription">Hide the interface and pause</span>
           </div>
-          <label class="switch" aria-label="중앙 홀드 활성화">
+          <label class="switch" aria-label="Enable center hold" data-i18n-aria-label="centerHoldLabel">
             <input id="centerHoldEnabled" type="checkbox" />
             <span class="switch-track"><span class="switch-thumb"></span></span>
           </label>
@@ -39,10 +39,10 @@
 
         <div class="setting-row">
           <div class="setting-copy">
-            <strong>가장자리 홀드</strong>
-            <span>누르는 동안 2배속</span>
+            <strong data-i18n="edgeHoldTitle">Edge hold</strong>
+            <span data-i18n="edgeHoldDescription">Play at 2× while holding</span>
           </div>
-          <label class="switch" aria-label="가장자리 홀드 활성화">
+          <label class="switch" aria-label="Enable edge hold" data-i18n-aria-label="edgeHoldLabel">
             <input id="edgeHoldEnabled" type="checkbox" />
             <span class="switch-track"><span class="switch-thumb"></span></span>
           </label>
@@ -50,10 +50,10 @@
 
         <div class="setting-row" id="speedLockRow">
           <div class="setting-copy">
-            <strong>아래로 밀어 고정</strong>
-            <span>같은 동작으로 해제</span>
+            <strong data-i18n="speedLockTitle">Slide down to lock</strong>
+            <span data-i18n="speedLockDescription">Repeat the gesture to unlock</span>
           </div>
-          <label class="switch" aria-label="2배속 고정 활성화">
+          <label class="switch" aria-label="Enable 2× speed lock" data-i18n-aria-label="speedLockLabel">
             <input id="speedLockEnabled" type="checkbox" />
             <span class="switch-track"><span class="switch-thumb"></span></span>
           </label>
@@ -61,10 +61,10 @@
 
         <div class="setting-row">
           <div class="setting-copy">
-            <strong>탐색 바</strong>
-            <span>드래그하여 이동</span>
+            <strong data-i18n="scrubBarTitle">Seek bar</strong>
+            <span data-i18n="scrubBarDescription">Drag to seek</span>
           </div>
-          <label class="switch" aria-label="탐색 바 활성화">
+          <label class="switch" aria-label="Enable seek bar" data-i18n-aria-label="scrubBarLabel">
             <input id="scrubBarEnabled" type="checkbox" />
             <span class="switch-track"><span class="switch-thumb"></span></span>
           </label>
@@ -76,7 +76,7 @@
           <rect x="5.5" y="10" width="13" height="10" rx="2.4" stroke="currentColor" stroke-width="1.6" />
           <path d="M8.5 10V7.5a3.5 3.5 0 0 1 7 0V10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
         </svg>
-        <span>Instagram 동영상에서만 작동</span>
+        <span data-i18n="scopeNote">Works only on Instagram videos</span>
       </footer>
     </main>
     <script type="module" src="./index.ts"></script>

@@ -51,6 +51,7 @@ describe('ActiveVideoController lifecycle', () => {
     vi.stubGlobal('cancelAnimationFrame', vi.fn());
     FakeIntersectionObserver.instances = [];
     document.body.innerHTML = '';
+    document.documentElement.lang = 'ko';
     history.replaceState({}, '', '/');
   });
 
@@ -105,6 +106,21 @@ describe('ActiveVideoController lifecycle', () => {
     document.dispatchEvent(new Event('transitionend', { bubbles: true }));
     flushAnimationFrames();
     expect(overlay?.style.left).toBe('260px');
+
+    controller.destroy();
+  });
+
+  it('follows live Instagram language changes', async () => {
+    createVisibleVideo();
+    const controller = new ActiveVideoController({ ...DEFAULT_SETTINGS });
+    const slider = document
+      .querySelector<HTMLElement>('[data-reel-controls="overlay"]')
+      ?.shadowRoot?.querySelector<HTMLElement>('[role="slider"]');
+    expect(slider?.getAttribute('aria-label')).toBe('영상 재생 위치');
+
+    document.documentElement.lang = 'zh-TW';
+    await Promise.resolve();
+    expect(slider?.getAttribute('aria-label')).toBe('影片播放位置');
 
     controller.destroy();
   });

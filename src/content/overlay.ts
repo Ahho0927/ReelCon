@@ -1,3 +1,5 @@
+import { detectInstagramLocale, translate, type SupportedLocale } from '../shared/i18n';
+
 const OVERLAY_STYLES = `
   :host {
     --rc-white: #ffffff;
@@ -36,7 +38,7 @@ const OVERLAY_STYLES = `
     opacity: 0;
     filter: drop-shadow(var(--rc-shadow));
     transition: opacity 140ms ease, transform 180ms cubic-bezier(.2,.8,.2,1);
-    white-space: nowrap;
+    white-space: normal;
   }
 
   .message.visible,
@@ -142,9 +144,11 @@ export class VideoOverlay {
   private readonly callbacks: OverlayCallbacks;
   private toastTimer: number | undefined;
   private draggingPointer: number | null = null;
+  private locale: SupportedLocale;
 
-  constructor(callbacks: OverlayCallbacks) {
+  constructor(callbacks: OverlayCallbacks, locale = detectInstagramLocale()) {
     this.callbacks = callbacks;
+    this.locale = locale;
     this.host = document.createElement('div');
     this.host.dataset.reelControls = 'overlay';
     const shadow = this.host.attachShadow({ mode: 'open' });
@@ -153,7 +157,7 @@ export class VideoOverlay {
       <div class="surface">
         <div class="message" role="status" aria-live="polite"></div>
         <div class="toast" role="status" aria-live="polite"></div>
-        <div class="scrub-hit" role="slider" tabindex="0" aria-label="영상 재생 위치" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="0%">
+        <div class="scrub-hit" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="0%">
           <div class="scrub-track">
             <div class="scrub-progress"><span class="scrub-thumb"></span></div>
           </div>
@@ -166,6 +170,7 @@ export class VideoOverlay {
     this.toast = shadow.querySelector('.toast') as HTMLDivElement;
     this.scrubHit = shadow.querySelector('.scrub-hit') as HTMLDivElement;
     this.progress = shadow.querySelector('.scrub-progress') as HTMLDivElement;
+    this.setLocale(locale);
 
     this.scrubHit.addEventListener('pointerdown', this.onScrubPointerDown);
     this.scrubHit.addEventListener('pointermove', this.onScrubPointerMove);
@@ -214,6 +219,11 @@ export class VideoOverlay {
     this.surface.classList.toggle('scrub-disabled', !enabled);
     this.scrubHit.tabIndex = enabled ? 0 : -1;
     this.scrubHit.toggleAttribute('aria-hidden', !enabled);
+  }
+
+  setLocale(locale: SupportedLocale): void {
+    this.locale = locale;
+    this.scrubHit.setAttribute('aria-label', translate(locale, 'scrubLabel'));
   }
 
   containsEvent(event: Event): boolean {

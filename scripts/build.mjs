@@ -6,3 +6,4 @@ await build({ configFile: 'vite.popup.config.ts' });
 await mkdir('dist', { recursive: true });
 await cp('manifest.json', 'dist/manifest.json');
 await cp('assets', 'dist/assets', { recursive: true });
+await cp('_locales', 'dist/_locales', { recursive: true });

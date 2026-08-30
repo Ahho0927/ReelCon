@@ -1,5 +1,11 @@
 import type { Settings } from '../shared/settings';
 import {
+  detectInstagramLocale,
+  translate,
+  type MessageKey,
+  type SupportedLocale,
+} from '../shared/i18n';
+import {
   getGestureZone,
   getLockThreshold,
   HOLD_DELAY_MS,
@@ -66,10 +72,16 @@ export class VideoSession {
   private progressFrame = 0;
   private resizeObserver: ResizeObserver | null = null;
   private destroyed = false;
+  private locale: SupportedLocale;
 
-  constructor(video: HTMLVideoElement, settings: Settings) {
+  constructor(
+    video: HTMLVideoElement,
+    settings: Settings,
+    locale = detectInstagramLocale(),
+  ) {
     this.video = video;
     this.settings = settings;
+    this.locale = locale;
     this.basePlaybackRate = video.playbackRate || 1;
     this.overlay = new VideoOverlay({
       onSeek: (ratio) => this.seek(ratio),
@@ -80,7 +92,7 @@ export class VideoSession {
       onSeekEnd: () => {
         this.scrubbing = false;
       },
-    });
+    }, locale);
     this.overlay.setScrubEnabled(settings.scrubBarEnabled);
 
     window.addEventListener('pointerdown', this.onPointerDown, true);
@@ -114,6 +126,14 @@ export class VideoSession {
 
   refreshLayout(): void {
     if (!this.destroyed) this.syncLayout();
+  }
+
+  updateLocale(locale: SupportedLocale): void {
+    if (locale === this.locale) return;
+    this.locale = locale;
+    this.overlay.setLocale(locale);
+    if (this.state === 'edgeHeld') this.showEdgeMessage(false);
+    if (this.state === 'edgeArmed') this.showEdgeMessage(true);
   }
 
   updateSettings(settings: Settings): void {
@@ -219,11 +239,7 @@ export class VideoSession {
     this.video.playbackRate = 2;
     safePlay(this.video);
     if (this.settings.speedLockEnabled) {
-      this.overlay.setMessage(
-        this.locked
-          ? '2배속 고정을 해제하려면 아래로 미세요'
-          : '2배속을 고정하려면 아래로 미세요',
-      );
+      this.showEdgeMessage(false);
     }
   }
 
@@ -250,15 +266,7 @@ export class VideoSession {
       this.settings.speedLockEnabled &&
       event.clientY - this.pending.startY >= getLockThreshold(this.video.getBoundingClientRect().height);
     this.state = armed ? 'edgeArmed' : 'edgeHeld';
-    this.overlay.setMessage(
-      armed
-        ? this.locked
-          ? '해제하려면 마우스를 놓으세요'
-          : '2배속을 고정하려면 마우스를 놓으세요'
-        : this.locked
-          ? '2배속 고정을 해제하려면 아래로 미세요'
-          : '2배속을 고정하려면 아래로 미세요',
-    );
+    this.showEdgeMessage(armed);
   };
 
   private onPointerUp = (event: PointerEvent): void => {
@@ -319,11 +327,11 @@ export class VideoSession {
     if (this.locked) {
       this.locked = false;
       this.video.playbackRate = this.basePlaybackRate;
-      this.overlay.showToast('2배속 고정 해제');
+      this.overlay.showToast(this.message('speedUnlocked'));
     } else {
       this.locked = true;
       this.video.playbackRate = 2;
-      this.overlay.showToast('2배속 고정');
+      this.overlay.showToast(this.message('speedLocked'));
     }
   }
 
@@ -331,7 +339,7 @@ export class VideoSession {
     if (!this.locked) return;
     this.locked = false;
     this.video.playbackRate = this.basePlaybackRate;
-    if (showToast) this.overlay.showToast('2배속 고정 해제');
+    if (showToast) this.overlay.showToast(this.message('speedUnlocked'));
     if (this.state === 'locked') this.state = 'idle';
   }
 
@@ -376,6 +384,21 @@ export class VideoSession {
   };
 
   private onWindowBlur = (): void => this.resetGesture();
+
+  private message(key: MessageKey): string {
+    return translate(this.locale, key);
+  }
+
+  private showEdgeMessage(armed: boolean): void {
+    const key: MessageKey = armed
+      ? this.locked
+        ? 'releaseToUnlock'
+        : 'releaseToLock'
+      : this.locked
+        ? 'slideToUnlock'
+        : 'slideToLock';
+    this.overlay.setMessage(this.message(key));
+  }
 
   private onViewportChange = (): void => {
     if (this.layoutFrame || this.destroyed) return;
