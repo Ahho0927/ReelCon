@@ -22,4 +22,4 @@ A Manifest V3 Chrome extension that adds desktop-friendly hold gestures and a pr
 
 ## Notes
 
-Reel Controls is an independent project and is not affiliated with, endorsed by, or sponsored by Instagram or Meta.
+ReelCon is an independent project and is not affiliated with, endorsed by, or sponsored by Instagram or Meta.
