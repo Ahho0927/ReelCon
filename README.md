@@ -1,28 +1,25 @@
 # Reel Controls
 
-Instagram 릴과 홈 피드 영상에 데스크톱용 홀드 제스처와 정밀 탐색 바를 추가하는 Manifest V3 Chrome 확장 프로그램입니다.
+[English](README.md) | [한국어](docs/README.ko.md) | [日本語](docs/README.ja.md) | [简体中文](docs/README.zh-CN.md) | [繁體中文](docs/README.zh-TW.md)
 
-## 기능
+A Manifest V3 Chrome extension that adds desktop-friendly hold gestures and a precise seek bar to Instagram Reels and feed videos.
 
-- 영상 중앙을 홀드하면 UI를 숨기고 일시정지
-- 영상 좌우 가장자리 영역을 홀드하면 2배속
-- 가장자리를 홀드한 채 아래로 밀면 2배속 고정/해제
-- 영상 하단의 흰색 탐색 바를 클릭/드래그해서 탐색
-- 릴, 홈 피드 영상, 홈에서 연 영상 게시물 모달 지원
+## Features
 
-## 설치
+- Hold the center of a video to pause it while hiding the interface.
+- Hold the left or right edge to play the video at 2x speed.
+- Slide downward while holding an edge to lock or unlock 2x speed.
+- Click or drag the white seek bar at the bottom of the video.
+- Supports Reels, feed videos, and post modals opened from the home feed.
+- Supports English, Japanese, Korean, Simplified Chinese, and Traditional Chinese.
 
-```bash
-npm install
-npm run build
-```
+## Installation
 
-Chrome에서 `chrome://extensions`를 열고 개발자 모드를 활성화한 다음 **압축해제된 확장 프로그램을 로드합니다**를 눌러 `dist` 폴더를 선택합니다.
+1. Download the ZIP file from the [Releases](../../releases) page.
+2. Extract the ZIP file.
+3. Open `chrome://extensions` in Chrome.
+4. Enable **Developer mode**, click **Load unpacked**, and select the extracted folder.
 
-## 개발 검증
+## Notes
 
-```bash
-npm run typecheck
-npm test
-npm run build
-```
+Reel Controls is an independent project and is not affiliated with, endorsed by, or sponsored by Instagram or Meta.
