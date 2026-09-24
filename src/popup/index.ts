@@ -16,6 +16,7 @@ type SettingKey = keyof Settings;
 
 const keys: SettingKey[] = [
   'enabled',
+  'photoDownloadEnabled',
   'centerHoldEnabled',
   'edgeHoldEnabled',
   'speedLockEnabled',

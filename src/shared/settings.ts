@@ -1,5 +1,6 @@
 export interface Settings {
   enabled: boolean;
+  photoDownloadEnabled: boolean;
   centerHoldEnabled: boolean;
   edgeHoldEnabled: boolean;
   speedLockEnabled: boolean;
@@ -8,6 +9,7 @@ export interface Settings {
 
 export const DEFAULT_SETTINGS: Readonly<Settings> = Object.freeze({
   enabled: true,
+  photoDownloadEnabled: true,
   centerHoldEnabled: true,
   edgeHoldEnabled: true,
   speedLockEnabled: true,

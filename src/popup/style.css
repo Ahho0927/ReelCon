@@ -25,7 +25,7 @@ body {
 }
 
 body {
-  min-height: 478px;
+  min-height: 554px;
 }
 
 button,
@@ -35,7 +35,7 @@ input {
 
 .popup-shell {
   width: 360px;
-  min-height: 478px;
+  min-height: 554px;
   padding: 22px 24px 0;
   background: var(--surface);
 }

@@ -15,6 +15,13 @@ export type MessageKey =
   | 'releaseToUnlock'
   | 'speedLocked'
   | 'speedUnlocked'
+  | 'downloadPhotoLabel'
+  | 'downloadingPhoto'
+  | 'downloadPhotoStarted'
+  | 'downloadPhotoFailed'
+  | 'photoDownloadTitle'
+  | 'photoDownloadDescription'
+  | 'photoDownloadSettingLabel'
   | 'masterLabel'
   | 'gestureSettings'
   | 'centerHoldTitle'
@@ -40,8 +47,15 @@ const messages: Record<SupportedLocale, Record<MessageKey, string>> = {
     releaseToUnlock: 'Release for normal speed',
     speedLocked: 'Locked at 2x speed',
     speedUnlocked: 'Back to normal speed',
+    downloadPhotoLabel: 'Download photo',
+    downloadingPhoto: 'Downloading photo',
+    downloadPhotoStarted: 'Download started',
+    downloadPhotoFailed: 'Could not download photo',
+    photoDownloadTitle: 'Photo download',
+    photoDownloadDescription: 'Save the current post photo',
+    photoDownloadSettingLabel: 'Enable photo download',
     masterLabel: 'Enable Reels Controls',
-    gestureSettings: 'Gesture settings',
+    gestureSettings: 'Feature settings',
     centerHoldTitle: 'Center hold',
     centerHoldDescription: 'Hide the interface and pause',
     centerHoldLabel: 'Enable center hold',
@@ -54,7 +68,7 @@ const messages: Record<SupportedLocale, Record<MessageKey, string>> = {
     scrubBarTitle: 'Seek bar',
     scrubBarDescription: 'Drag or click to seek',
     scrubBarLabel: 'Enable seek bar',
-    scopeNote: 'Works only on Instagram videos',
+    scopeNote: 'Works on Instagram post photos and videos',
   },
   ja: {
     scrubLabel: '動画の再生位置',
@@ -64,8 +78,15 @@ const messages: Record<SupportedLocale, Record<MessageKey, string>> = {
     releaseToUnlock: 'リリースして通常の速度にする',
     speedLocked: '2倍速ロック',
     speedUnlocked: '通常の速度に戻す',
+    downloadPhotoLabel: '写真をダウンロード',
+    downloadingPhoto: '写真をダウンロード中',
+    downloadPhotoStarted: 'ダウンロードを開始しました',
+    downloadPhotoFailed: '写真をダウンロードできませんでした',
+    photoDownloadTitle: '写真ダウンロード',
+    photoDownloadDescription: '表示中の投稿写真を保存',
+    photoDownloadSettingLabel: '写真ダウンロードを有効にする',
     masterLabel: 'Reel Controlsを有効にする',
-    gestureSettings: 'ジェスチャー設定',
+    gestureSettings: '機能設定',
     centerHoldTitle: '中央をホールド',
     centerHoldDescription: 'UIを隠して一時停止',
     centerHoldLabel: '中央ホールドを有効にする',
@@ -78,7 +99,7 @@ const messages: Record<SupportedLocale, Record<MessageKey, string>> = {
     scrubBarTitle: 'シークバー',
     scrubBarDescription: 'ドラッグまたはクリックして移動',
     scrubBarLabel: 'シークバーを有効にする',
-    scopeNote: 'Instagramの動画でのみ動作',
+    scopeNote: 'Instagramの投稿写真と動画で動作',
   },
   ko: {
     scrubLabel: '영상 재생 위치',
@@ -88,8 +109,15 @@ const messages: Record<SupportedLocale, Record<MessageKey, string>> = {
     releaseToUnlock: '보통 속도로 재생하려면 마우스를 놓으세요',
     speedLocked: '2배속 고정',
     speedUnlocked: '보통 속도로 돌아가기',
+    downloadPhotoLabel: '사진 다운로드',
+    downloadingPhoto: '사진 다운로드 중',
+    downloadPhotoStarted: '다운로드를 시작했습니다',
+    downloadPhotoFailed: '사진을 다운로드하지 못했습니다',
+    photoDownloadTitle: '사진 다운로드',
+    photoDownloadDescription: '현재 게시물 사진 저장',
+    photoDownloadSettingLabel: '사진 다운로드 활성화',
     masterLabel: 'Reels Controls 전체 활성화',
-    gestureSettings: '제스처 설정',
+    gestureSettings: '기능 설정',
     centerHoldTitle: '중앙 홀드',
     centerHoldDescription: 'UI 숨기고 일시정지',
     centerHoldLabel: '중앙 홀드 활성화',
@@ -102,7 +130,7 @@ const messages: Record<SupportedLocale, Record<MessageKey, string>> = {
     scrubBarTitle: '탐색 바',
     scrubBarDescription: '드래그하여 이동',
     scrubBarLabel: '탐색 바 활성화',
-    scopeNote: 'Instagram 동영상에서만 작동',
+    scopeNote: 'Instagram 게시물 사진과 동영상에서 작동',
   },
   'zh-CN': {
     scrubLabel: '视频播放位置',
@@ -112,8 +140,15 @@ const messages: Record<SupportedLocale, Record<MessageKey, string>> = {
     releaseToUnlock: '松开可恢復正常速度',
     speedLocked: '已锁定 2 倍速',
     speedUnlocked: '恢復正常速度',
+    downloadPhotoLabel: '下载照片',
+    downloadingPhoto: '正在下载照片',
+    downloadPhotoStarted: '已开始下载',
+    downloadPhotoFailed: '无法下载照片',
+    photoDownloadTitle: '照片下载',
+    photoDownloadDescription: '保存当前帖子照片',
+    photoDownloadSettingLabel: '启用照片下载',
     masterLabel: '启用 Reels Controls',
-    gestureSettings: '手势设置',
+    gestureSettings: '功能设置',
     centerHoldTitle: '中央长按',
     centerHoldDescription: '隐藏界面并暂停',
     centerHoldLabel: '启用中央长按',
@@ -126,7 +161,7 @@ const messages: Record<SupportedLocale, Record<MessageKey, string>> = {
     scrubBarTitle: '进度条',
     scrubBarDescription: '拖动以跳转',
     scrubBarLabel: '启用进度条',
-    scopeNote: '仅适用于 Instagram 视频',
+    scopeNote: '适用于 Instagram 帖子照片和视频',
   },
   'zh-TW': {
     scrubLabel: '影片播放位置',
@@ -136,8 +171,15 @@ const messages: Record<SupportedLocale, Record<MessageKey, string>> = {
     releaseToUnlock: '放開即可恢復正常速度',
     speedLocked: '鎖定在 2 倍速',
     speedUnlocked: '恢復正常速度',
+    downloadPhotoLabel: '下載照片',
+    downloadingPhoto: '正在下載照片',
+    downloadPhotoStarted: '已開始下載',
+    downloadPhotoFailed: '無法下載照片',
+    photoDownloadTitle: '照片下載',
+    photoDownloadDescription: '儲存目前貼文照片',
+    photoDownloadSettingLabel: '啟用照片下載',
     masterLabel: '啟用 Reel Controls',
-    gestureSettings: '手勢設定',
+    gestureSettings: '功能設定',
     centerHoldTitle: '中央長按',
     centerHoldDescription: '隱藏介面並暫停',
     centerHoldLabel: '啟用中央長按',
@@ -150,7 +192,7 @@ const messages: Record<SupportedLocale, Record<MessageKey, string>> = {
     scrubBarTitle: '進度列',
     scrubBarDescription: '拖曳以跳轉',
     scrubBarLabel: '啟用進度列',
-    scopeNote: '僅適用於 Instagram 影片',
+    scopeNote: '適用於 Instagram 貼文照片和影片',
   },
 };
 

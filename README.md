@@ -2,15 +2,17 @@
 
 [English](README.md) | [한국어](docs/README.ko.md) | [日本語](docs/README.ja.md) | [简体中文](docs/README.zh-CN.md) | [繁體中文](docs/README.zh-TW.md)
 
-A Manifest V3 Chrome extension that adds desktop-friendly hold gestures and a precise seek bar to Instagram Reels and feed videos.
+A Manifest V3 Chrome extension that downloads Instagram post photos and adds desktop-friendly video controls.
 
 ## Features
 
+- Download the highest-resolution photo exposed by Instagram from home-feed and post views.
+- Hover a photo and use the bottom-right download button; carousels download the current slide.
 - Hold the center of a video to pause it while hiding the interface.
 - Hold the left or right edge to play the video at 2x speed.
 - Slide downward while holding an edge to lock or unlock 2x speed.
 - Click or drag the white seek bar at the bottom of the video.
-- Supports Reels, feed videos, and post modals opened from the home feed.
+- Supports home-feed photos, individual and modal posts, Reels, and feed videos.
 - Supports English, Japanese, Korean, Simplified Chinese, and Traditional Chinese.
 
 ## Installation
